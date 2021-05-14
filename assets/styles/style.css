@@ -15,8 +15,10 @@ body{
 }
 
 #scoreBoard{
+    margin: 10px;
     padding: 10px;
-    border: 1px solid #0092c4;
+    text-align: center;
+   
 }
 
 #containerGame{
@@ -94,7 +96,14 @@ body{
     gap:10px
 }
 
+#credit{
+    margin-top: 10px;
+}
+
 @media only screen and (max-width: 700px) {
+    body{
+        flex-direction: column;
+    }
     .game-board{
         max-width: 400px;
 
@@ -102,13 +111,16 @@ body{
         gap: 20px;  
     }
     .card{
-        width: 80px;
-        height: 80px;
+        width: 75px;
+        height: 75px;
     }
     .icon{
-        width: 40px;
+        width: 65px;
     }
     .card_front,.card_back{
         border-radius:10px;
+    }
+    #credit{
+        font-size: 11px;
     }
 }

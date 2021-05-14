@@ -7,7 +7,11 @@ startGame()
 
 function startGame() {
     initializeCards(game.createCardsFromTechs())
-    
+}
+
+function updateMovement(){
+    let movements = document.getElementById("movement")
+    movements.innerHTML = game.movements
 }
 
 function initializeCards(cards) {
@@ -55,21 +59,23 @@ function flipCard() {
 
         this.classList.add("flip");
         if (game.secondCard) {
+            updateMovement()
             if (game.checkMatch()) {
                 game.clearCards();
                 if (game.checkGameOver()) {
-                    let gameOverLayer = document.getElementById("gameOver");
-                    gameOverLayer.style.display = 'flex';
+                    updateRankingBD()
+                    let gameOverLayer = document.getElementById("gameOver")
+                    gameOverLayer.style.display = 'flex'
                 }
             } else {
                 setTimeout(() => {
-                    let firstCardView = document.getElementById(game.firstCard.id);
-                    let secondCardView = document.getElementById(game.secondCard.id);
+                    let firstCardView = document.getElementById(game.firstCard.id)
+                    let secondCardView = document.getElementById(game.secondCard.id)
 
-                    firstCardView.classList.remove('flip');
-                    secondCardView.classList.remove('flip');
-                    game.unflipCards();
-                }, 1000);
+                    firstCardView.classList.remove('flip')
+                    secondCardView.classList.remove('flip')
+                    game.unflipCards()
+                }, 1000)
 
             };
         }
@@ -77,9 +83,38 @@ function flipCard() {
 
 }
 
+function createRanking() {
+    let ranking = document.getElementById("ranking")
+
+    for (var user of game.ranking) {
+        let li = document.createElement("li")
+        li.innerHTML = user.name + ": "
+
+        let span = document.createElement("span")
+        span.innerHTML = user.movements
+
+        li.appendChild(span)
+        ranking.appendChild(li)
+    }
+}
+
+function updateRanking() {
+    let li = document.getElementsByTagName(li)
+    let span = document.getElementsByTagName(span)
+    let i = 0
+
+    for (var user of game.ranking) {
+        li[i].innerHTML = user.name + ": "
+        span[i].innerHTML = user.movements
+    }
+}
+
+
 function restart() {
-    game.clearCards();
-    startGame();
-    let gameOverLayer = document.getElementById("gameOver");
-    gameOverLayer.style.display = 'none';
+    game.clearCards()
+    game.clearMovements()
+    updateMovement()
+    startGame()
+    let gameOverLayer = document.getElementById("gameOver")
+    gameOverLayer.style.display = 'none'
 }
